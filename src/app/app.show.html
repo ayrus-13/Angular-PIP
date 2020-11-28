@@ -1,0 +1,61 @@
+
+<h1>{{getProducts()}}</h1>
+
+<div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+    <button type="button" class="sortBtn btn btn-info" (click)="sortById()">Sort By Product Id</button>
+    <button type="button" class="sortBtn btn btn-info" (click)="sortByCost()" >Sort By Product Cost</button>
+    <button type="button" class="sortBtn btn btn-info" (click)="sortByQuantity()" >Sort By Product Quantity</button>
+    <button type="button" class="sortBtn btn btn-info" (click)="sortByRating()" >Sort By Product Rating</button>
+
+</div>
+
+<table border="1">
+    <tr>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Description</th>
+        <th>Product Quantity</th>
+        <th>Product Description</th>
+    </tr>
+    <tr *ngFor="let pro of products | paginate:{ itemsPerPage:4,currentPage:p}">
+        <td>{{pro.prodId}}</td>
+        <td>{{pro.prodName}}</td>
+        <td>{{pro.prodCost}}</td>
+        <td>{{pro.prodDescription}}</td>
+        <td>{{pro.prodQuantity}}</td>
+        <td>{{pro.prodDescription}}</td>
+        <td><input type="button" value="DELETE" (click)="deleteProduct(pro.prodId)" class="btn btn-secondary"/></td>
+        <td><input type="button" value="UPDATE" (click)="toggleStatus(pro.prodId)" class="btn btn-secondary"/></td>
+        <div *ngIf="pro.update">
+                <table border="1">
+                        <tr>
+                            <td>ProdId</td>
+                            <td><input type="number" [(ngModel)]="prodId" disabled/></td>
+                        </tr>
+                        <tr>
+                            <td>ProdName</td>
+                            <td><input type="text" [(ngModel)]="prodName" /></td>
+                        </tr>
+                        <tr>
+                            <td>ProdCost</td>
+                            <td><input type="number" [(ngModel)]="prodPrice"/></td>
+                        </tr>
+                        <tr>
+                            <td>prodQuantity</td>
+                            <td><input type="number" [(ngModel)]="prodQuantity"/></td>
+                        </tr>
+                        <tr>
+                            <td>prodDescription</td>
+                            <td><input type="text" [(ngModel)]="prodDescription" /></td>
+                        </tr>
+                        <tr>
+                            <input type="button" class="btn btn-primary" value="update" (click)="updateProduct(pro.prodId)"/>
+                        </tr>
+                    </table>
+                    <br>
+         </div>
+         <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+    </tr>
+    </table>
+    

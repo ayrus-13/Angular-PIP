@@ -1,16 +1,32 @@
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { AppComponent }  from './app.component';
+import {ProductComponent} from './app.addproduct';
+import {FormsModule}      from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'; 
+import {ShowComponent}    from './app.showcomponent';
+import {Routes,RouterModule}  from '@angular/router'; 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ModifyComponent } from './app.modifyproduct';
 
-import { AppComponent } from './app.component';
+
+const myroute:Routes=[
+    {path:'show/:showId',component:ShowComponent,pathMatch: 'full'},
+    {path:'add',component:ProductComponent},
+    {path:'modify',component:ModifyComponent}
+]
+
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,FormsModule,HttpClientModule,NgxPaginationModule,RouterModule.forRoot(myroute)
+        
+    ],
+    declarations: [
+        AppComponent,ProductComponent,ShowComponent,ModifyComponent,
+		],
+    providers: [ ],
+    bootstrap: [AppComponent]
 })
+
 export class AppModule { }
