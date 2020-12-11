@@ -30,7 +30,8 @@ export class ProductComponent implements OnInit,OnChanges{
     prodName:string;
     prodPrice:number;*/
     
-   
+    idPattern="^[a-z0-9_-]{4,15}$";
+
     addProduct():any{
         alert("adding");
         console.log(this.model);
@@ -40,7 +41,7 @@ export class ProductComponent implements OnInit,OnChanges{
     }
     descriptionValid:boolean=true;
     validateDesc(){
-        if(this.model.prodDescription.length>5){
+        if(this.model.productDesc.length>5){
             this.descriptionValid=false;
         }
             else
@@ -52,7 +53,7 @@ export class ProductComponent implements OnInit,OnChanges{
 
     nameValid:boolean=true;
     validateName(){
-        if(this.model.prodName.length>5){
+        if(this.model.productName.length>5){
             this.nameValid=false;
         }
             else
@@ -64,27 +65,17 @@ export class ProductComponent implements OnInit,OnChanges{
 
     buttonFlag:boolean=false;
     enableButton(){
-        this.buttonFlag=!this.idValid&&!this.costValid&&!this.quantityValid&&!this.ratingValid&&!this.nameValid&&!this.descriptionValid;
+        this.buttonFlag=!this.costValid&&!this.quantityValid&&!this.ratingValid&&!this.nameValid&&!this.descriptionValid;
     }
 
-    idValid:boolean=true;
-    validateId(){
-        if(this.model.prodId>9999){
-            this.idValid=true;
-        }
-        else if(this.model.prodId<1){
-            this.idValid=true;
-        }else{
-            this.idValid=false;
-        }
-    }
+    
 
     costValid:boolean=true;
     validateCost(){
-        if(this.model.prodCost>999999){
+        if(this.model.price>999999){
             this.costValid=true;
         }
-        else if(this.model.prodCost<1){
+        else if(this.model.price<1){
             this.costValid=true;
         }else{
             this.costValid=false;
@@ -93,10 +84,10 @@ export class ProductComponent implements OnInit,OnChanges{
 
     quantityValid:boolean=true;
     validateQuantity(){
-        if(this.model.prodQuantity>999){
+        if(this.model.quantity>999){
             this.quantityValid=true;
         }
-        else if(this.model.prodQuantity<1){
+        else if(this.model.quantity<1){
             this.quantityValid=true;
         }else{
             this.quantityValid=false;
@@ -105,10 +96,10 @@ export class ProductComponent implements OnInit,OnChanges{
 
     ratingValid:boolean=true;
     validateRating(){
-        if(this.model.prodRating>5){
+        if(this.model.ratings>5){
             this.ratingValid=true;
         }
-        else if(this.model.prodRating<1){
+        else if(this.model.ratings<1){
             this.ratingValid=true;
         }else{
             this.ratingValid=false;  

@@ -8,10 +8,10 @@ import {ShowComponent}    from './app.showcomponent';
 import {Routes,RouterModule}  from '@angular/router'; 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModifyComponent } from './app.modifyproduct';
-
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 
 const myroute:Routes=[
-    {path:'show/:showId',component:ShowComponent,pathMatch: 'full'},
+    {path:'show',component:ShowComponent,pathMatch: 'full'},
     {path:'add',component:ProductComponent},
     {path:'modify',component:ModifyComponent}
 ]
@@ -19,7 +19,10 @@ const myroute:Routes=[
 
 @NgModule({
     imports: [
-        BrowserModule,FormsModule,HttpClientModule,NgxPaginationModule,RouterModule.forRoot(myroute)
+        BrowserModule,FormsModule,HttpClientModule,NgxPaginationModule,ConfirmationPopoverModule.forRoot({
+            confirmButtonType: 'danger'
+        }),
+        RouterModule.forRoot(myroute)
         
     ],
     declarations: [

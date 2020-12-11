@@ -1,61 +1,105 @@
 
-<h1>{{getProducts()}}</h1>
+<h3>Product Table</h3>
 
-<div class="row" style="margin-top: 30px; margin-bottom: 30px;">
-    <button type="button" class="sortBtn btn btn-info" (click)="sortById()">Sort By Product Id</button>
+<!-- <div class="row" style="margin-top: 0px; margin-bottom: 30px;">
     <button type="button" class="sortBtn btn btn-info" (click)="sortByCost()" >Sort By Product Cost</button>
     <button type="button" class="sortBtn btn btn-info" (click)="sortByQuantity()" >Sort By Product Quantity</button>
     <button type="button" class="sortBtn btn btn-info" (click)="sortByRating()" >Sort By Product Rating</button>
 
-</div>
+</div> -->
 
-<table border="1">
-    <tr>
+
+
+<label for="sorting">Sort By:</label>
+<select id="iselect" (change)="myFunc()">
+  <option value="Product Cost">Product Cost</option>
+  <option value="Product Quantity" >Product Quantity</option>
+  <option value="Product Rating" >Product Rating</option>
+</select>
+     
+
+<style>
+    table, th, td {
+      border: 1px solid black;
+    }
+    table.center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    </style>
+<div>
+<table>
+  
+  <tr >
         <th>Product Id</th>
         <th>Product Name</th>
-        <th>Product Price</th>
+        <th>Product Price(Rs.)</th>
         <th>Product Description</th>
         <th>Product Quantity</th>
-        <th>Product Description</th>
+        <th>Product Rating</th>
     </tr>
-    <tr *ngFor="let pro of products | paginate:{ itemsPerPage:4,currentPage:p}">
-        <td>{{pro.prodId}}</td>
-        <td>{{pro.prodName}}</td>
-        <td>{{pro.prodCost}}</td>
-        <td>{{pro.prodDescription}}</td>
-        <td>{{pro.prodQuantity}}</td>
-        <td>{{pro.prodDescription}}</td>
-        <td><input type="button" value="DELETE" (click)="deleteProduct(pro.prodId)" class="btn btn-secondary"/></td>
-        <td><input type="button" value="UPDATE" (click)="toggleStatus(pro.prodId)" class="btn btn-secondary"/></td>
-        <div *ngIf="pro.update">
-                <table border="1">
-                        <tr>
-                            <td>ProdId</td>
-                            <td><input type="number" [(ngModel)]="prodId" disabled/></td>
-                        </tr>
-                        <tr>
-                            <td>ProdName</td>
-                            <td><input type="text" [(ngModel)]="prodName" /></td>
-                        </tr>
-                        <tr>
-                            <td>ProdCost</td>
-                            <td><input type="number" [(ngModel)]="prodPrice"/></td>
-                        </tr>
-                        <tr>
-                            <td>prodQuantity</td>
-                            <td><input type="number" [(ngModel)]="prodQuantity"/></td>
-                        </tr>
-                        <tr>
-                            <td>prodDescription</td>
-                            <td><input type="text" [(ngModel)]="prodDescription" /></td>
-                        </tr>
-                        <tr>
-                            <input type="button" class="btn btn-primary" value="update" (click)="updateProduct(pro.prodId)"/>
-                        </tr>
-                    </table>
-                    <br>
-         </div>
-         <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
-    </tr>
-    </table>
     
+    
+    <tr *ngFor="let pro of products | paginate:{ itemsPerPage:4,currentPage:p}">
+        <td>{{pro.productId}}</td>
+        <td>{{pro.productName}}</td>
+        <td>{{pro.price}}</td>
+        <td>{{pro.productDesc}}</td>
+        <td>{{pro.quantity}}</td>
+        <td>{{pro.ratings}}</td>
+        <td><input type="button" value="DELETE"  class="btn btn-primary" 
+          mwlConfirmationPopover
+          [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage"
+          placement="left"
+          (confirm)="deleteProduct(pro.productId)"
+          (cancel)="cancelClicked = true"/>
+          </td> 
+        <td><input type="button" value="UPDATE" (click)="updateProduct(pro)" class="btn btn-primary" /></td>
+        <div *ngIf="pro.popup">
+            <form>
+                <label>Product Id :</label>
+                <input [(ngModel)]="pro.productId" disabled [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="productId" placeholder="...">
+                
+                <br>
+            
+                <label>Product Name:</label>
+                <input (blur)="validateName()" [(ngModel)]="pro.productName" disabled [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="productName" placeholder="...">
+                
+                <br>
+            
+                <label>Product Description :</label>
+                <input (blur)="validateDesc()" [(ngModel)]="pro.productDesc" disabled [ngModelOptions]="{standalone: true}" type="string" class="form-control col-md-5" id="productDesc" placeholder="...">
+                
+                <br>
+            
+               
+                <label>Product Cost :</label>
+                <input (blur)="validateCost(); enableButton()" [(ngModel)]="pro.price" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="price" placeholder="...">
+                <small *ngIf="costValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Cost limit.</small>
+            
+                <br>
+            
+                <label>Product Quantity :</label>
+                <input (blur)="validateQuantity(); enableButton()" [(ngModel)]="pro.quantity" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="quantity" placeholder="...">
+                <small *ngIf="quantityValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Quantity limit </small>
+            
+                <br>
+            
+                <label>Product Rating :</label>
+                <input (blur)="validateRating(); enableButton()" [(ngModel)]="pro.ratings" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="ratings" placeholder="...">
+                <small *ngIf="ratingValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Rating limit </small>
+            
+                <br>
+                
+                <div class="col-md-3 offset-md-9">
+                        <button [disabled]="!buttonFlag" type="button" class="btn btn-secondary"  (click)="modifyProduct(pro)">UPDATE</button>
+                    </div></form>
+                    <br>
+                   
+         </div>
+    </tr>
+   
+    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+</table>
+</div>  

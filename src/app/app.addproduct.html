@@ -37,35 +37,35 @@
     <h3>Add Product  </h3>
   <form>
     <label>Product Id :</label>
-    <input (blur)="validateId()" [(ngModel)]="model.prodId" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="productId" placeholder="...">
-    <small *ngIf="idValid" style="color: rgb(38, 0, 255)(38, 0, 255);">Invalid ID. Please enter an id between 1 to 9999.</small>
+    <input  [(ngModel)]="model.productId" [pattern]="idPattern" #id="ngModel" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="productId" placeholder="...">
+    <small *ngIf="id.errors?.pattern" style="color: rgb(38, 0, 255)(38, 0, 255);">Invalid ID. Please enter a valid id.</small>
     <br>
 
     <label>Product Name:</label>
-    <input (blur)="validateName()" [(ngModel)]="model.prodName" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="productName" placeholder="...">
+    <input (blur)="validateName()" [(ngModel)]="model.productName" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="productName" placeholder="...">
     <small *ngIf="nameValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Enter valid name.</small>
     <br>
 
     <label>Product Description :</label>
-    <input (blur)="validateDesc()" [(ngModel)]="model.prodDescription" [ngModelOptions]="{standalone: true}" type="string" class="form-control col-md-5" id="productDescription" placeholder="...">
+    <input (blur)="validateDesc()" [(ngModel)]="model.productDesc" [ngModelOptions]="{standalone: true}" type="string" class="form-control col-md-5" id="productDesc" placeholder="...">
     <small *ngIf="descriptionValid" style="color: rgb(38, 0, 255)(38, 0, 255);">Enter valid description</small>
     <br>
 
    
     <label>Product Cost :</label>
-    <input (blur)="validateCost(); enableButton()" [(ngModel)]="model.prodCost" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="productCost" placeholder="...">
+    <input (blur)="validateCost(); enableButton()" [(ngModel)]="model.price" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="price" placeholder="...">
     <small *ngIf="costValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Cost limit.</small>
 
     <br>
 
     <label>Product Quantity :</label>
-    <input (blur)="validateQuantity(); enableButton()" [(ngModel)]="model.prodQuantity" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="productQuantity" placeholder="...">
+    <input (blur)="validateQuantity(); enableButton()" [(ngModel)]="model.quantity" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="quantity" placeholder="...">
     <small *ngIf="quantityValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Quantity limit </small>
 
     <br>
 
     <label>Product Rating :</label>
-    <input (blur)="validateRating(); enableButton()" [(ngModel)]="model.prodRating" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="productRating" placeholder="...">
+    <input (blur)="validateRating(); enableButton()" [(ngModel)]="model.ratings" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="ratings" placeholder="...">
     <small *ngIf="ratingValid" style="color:  rgb(38, 0, 255)(38, 0, 255);">Invalid Rating limit </small>
 
     <br>

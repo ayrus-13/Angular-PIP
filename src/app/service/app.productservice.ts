@@ -9,33 +9,32 @@ export class ProductService{
     constructor(private myhttp:HttpClient){}
 
     getAllData(){
-       return this.myhttp.get("http://localhost:9088/product/getall?ename=asdasf");
+       return this.myhttp.get("http://localhost:9088/showproducts");
     }
 
     addProduct(data:any){
        let form = new FormData();
-       form.append("prodId",data.prodId);
-       form.append("prodName",data.prodName);
-       form.append("prodCost",data.prodCost);
-       form.append("prodDescription",data.prodDescription);
-       form.append("prodQuantity",data.prodQuantity);
-       form.append("prodRating",data.prodRating);
-       return this.myhttp.post("http://localhost:9088/product/add",form);
+       form.append("productId",data.productId);
+       form.append("productName",data.productName);
+       form.append("price",data.price);
+       form.append("productDesc",data.productDesc);
+       form.append("quantity",data.quantity);
+       form.append("ratings",data.ratings);
+       return this.myhttp.post("http://localhost:9088/add",form);
     }
 
     modifyProduct(data:any){
       let form = new FormData();
-      form.append("prodId",data.prodId);
-      form.append("prodName",data.prodName);
-      form.append("prodCost",data.prodCost);
-      form.append("prodDescription",data.prodDescription);
-      form.append("prodQuantity",data.prodQuantity);
-      form.append("prodRating",data.prodRating);
-      return this.myhttp.post("http://localhost:9088/product/modify",form);
+      form.append("productId",data.productId);
+      //alert("hi"+ data.productId);
+      form.append("productName",data.productName);
+      form.append("price",data.price);
+      form.append("productDesc",data.productDesc);
+      form.append("quantity",data.quantity);
+      form.append("ratings",data.ratings);
+      return this.myhttp.post("http://localhost:9088/modifyproduct",form);
    }
-    deleteProduct(data:any){
-       console.log("deleting");
-       console.log(data);
-       return this.myhttp.delete("http://localhost:9088/product/delete?prodId="+data);
+    deleteProduct(productId:number){
+       return this.myhttp.delete("http://localhost:9088/deleteproduct?productId="+productId);
     }
 }

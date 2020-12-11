@@ -1,8 +1,10 @@
 export class Product{
-    prodId:number;
-    prodName:string;
-    prodCost:number;
-    prodDescription:string;
-    prodQuantity:number;
-    prodRating:number;
+    productId:string;
+    productName:string;
+    price:number;
+    productDesc:string;
+    quantity:number;
+    ratings:number;
+    isActive:boolean=true;
+    popup:boolean=false;
 }

@@ -33,13 +33,13 @@ export class ModifyComponent implements OnInit,OnChanges{
    
     modifyProduct():any{
         console.log(this.model);
-        this.service.addProduct(this.model).subscribe((data)=>console.log(data));
+        this.service.modifyProduct(this.model).subscribe((data)=>console.log(data));
         alert("Product modified");
         location.reload();
     }
     descriptionValid:boolean=true;
     validateDesc(){
-        if(this.model.prodDescription.length>5){
+        if(this.model.productDesc.length>5){
             this.descriptionValid=false;
         }
             else
@@ -51,7 +51,7 @@ export class ModifyComponent implements OnInit,OnChanges{
 
     nameValid:boolean=true;
     validateName(){
-        if(this.model.prodName.length>5){
+        if(this.model.productName.length>5){
             this.nameValid=false;
         }
             else
@@ -68,10 +68,10 @@ export class ModifyComponent implements OnInit,OnChanges{
 
     idValid:boolean=true;
     validateId(){
-        if(this.model.prodId>9999){
+        if(this.model.productId>9999){
             this.idValid=true;
         }
-        else if(this.model.prodId<1){
+        else if(this.model.productId<1){
             this.idValid=true;
         }else{
             this.idValid=false;
@@ -80,10 +80,10 @@ export class ModifyComponent implements OnInit,OnChanges{
 
     costValid:boolean=true;
     validateCost(){
-        if(this.model.prodCost>999999){
+        if(this.model.price>999999){
             this.costValid=true;
         }
-        else if(this.model.prodCost<1){
+        else if(this.model.price<1){
             this.costValid=true;
         }else{
             this.costValid=false;
@@ -92,10 +92,10 @@ export class ModifyComponent implements OnInit,OnChanges{
 
     quantityValid:boolean=true;
     validateQuantity(){
-        if(this.model.prodQuantity>999){
+        if(this.model.quantity>999){
             this.quantityValid=true;
         }
-        else if(this.model.prodQuantity<1){
+        else if(this.model.quantity<1){
             this.quantityValid=true;
         }else{
             this.quantityValid=false;
@@ -104,10 +104,10 @@ export class ModifyComponent implements OnInit,OnChanges{
 
     ratingValid:boolean=true;
     validateRating(){
-        if(this.model.prodRating>5){
+        if(this.model.ratinga>5){
             this.ratingValid=true;
         }
-        else if(this.model.prodRating<1){
+        else if(this.model.ratings<1){
             this.ratingValid=true;
         }else{
             this.ratingValid=false;  
